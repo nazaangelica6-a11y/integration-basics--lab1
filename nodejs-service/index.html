@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pretty Calculator 💕</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-family: "Segoe UI", Arial, sans-serif;
+
+            background: linear-gradient(135deg, #ffe6f2, #f8e8ff, #e6f0ff);
+        }
+
+        .calculator {
+            width: 400px;
+            padding: 35px;
+
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+
+            box-shadow: 0 15px 40px rgba(180, 120, 160, 0.25);
+
+            text-align: center;
+        }
+
+        .heart {
+            font-size: 45px;
+            margin-bottom: 5px;
+        }
+
+        h1 {
+            margin: 5px 0;
+            color: #d45b91;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #9b7a91;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 14px;
+            margin: 8px 0;
+
+            border: 2px solid #f3c5dc;
+            border-radius: 15px;
+
+            background: #fff8fc;
+
+            font-size: 16px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #d98bb1;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 15px;
+
+            border: none;
+            border-radius: 15px;
+
+            background: linear-gradient(135deg, #e88bb5, #c98be8);
+            color: white;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow: 0 8px 18px rgba(200, 130, 180, 0.25);
+
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 22px rgba(200, 130, 180, 0.35);
+        }
+
+        #result {
+            margin-top: 25px;
+            padding: 18px;
+
+            border-radius: 18px;
+
+            background: #fff0f7;
+            color: #c45186;
+
+            font-size: 20px;
+            font-weight: bold;
+
+            min-height: 25px;
+        }
+
+        .footer {
+            margin-top: 20px;
+            color: #b08da5;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="calculator">
+
+        <div class="heart">🎀</div>
+
+        <h1>Pretty Calculator</h1>
+
+        <div class="subtitle">
+            Node.js + Python Integration 💕
+        </div>
+
+        <input
+            type="number"
+            id="num1"
+            placeholder="First number ✨"
+        >
+
+        <input
+            type="number"
+            id="num2"
+            placeholder="Second number ✨"
+        >
+
+        <select id="operation">
+            <option value="add">💕 Add</option>
+            <option value="subtract">🌸 Subtract</option>
+            <option value="multiply">💗 Multiply</option>
+            <option value="divide">🦋 Divide</option>
+            <option value="power">✨ Power</option>
+            <option value="modulo">🌷 Modulo</option>
+            <option value="square_root">🎀 Square Root</option>
+        </select>
+
+        <button onclick="calculate()">
+            Calculate 💕
+        </button>
+
+        <h2 id="result"></h2>
+
+        <div class="footer">
+            Made with ♡ using Node.js & Python
+        </div>
+
+    </div>
+
+    <script>
+        async function calculate() {
+
+            const num1 = Number(
+                document.getElementById('num1').value
+            );
+
+            const num2 = Number(
+                document.getElementById('num2').value
+            );
+
+            const operation =
+                document.getElementById('operation').value;
+
+            try {
+
+                const response = await fetch('/api/calculate', {
+                    method: 'POST',
+
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+
+                    body: JSON.stringify({
+                        num1: num1,
+                        num2: num2,
+                        operation: operation
+                    })
+                });
+
+                const data = await response.json();
+
+                document.getElementById('result').textContent =
+                    'Result: ' + data.python_result.result;
+
+            } catch (error) {
+
+                document.getElementById('result').textContent =
+                    'Oops! Something went wrong 💔';
+
+            }
+        }
+    </script>
+
+</body>
+</html>
